@@ -37,7 +37,7 @@ def pipeline(input_img: np.ndarray):
     # Process first image (single-image interface)
     r = results[0]
     img = r.orig_img.copy()  # BGR
-
+    all_cls_res = []
     for i, box in enumerate(r.boxes):
         x1, y1, x2, y2 = map(int, box.xyxy[0].tolist())
         det_conf = box.conf.item()
@@ -55,6 +55,7 @@ def pipeline(input_img: np.ndarray):
         else:
             tile_type = cls_res.names[cls_res.probs.top1]
             cls_conf = cls_res.probs.top1conf.item()
+            all_cls_res.append(cls_res)
 
         # Draw on original image
         color = (0, 255, 0) if tile_type != "unknown" else (0, 0, 255)
@@ -65,25 +66,28 @@ def pipeline(input_img: np.ndarray):
             label,
             (x1, y1 - 10),
             cv2.FONT_HERSHEY_SIMPLEX,
-            0.6,
+            2,
             color,
             2,
         )
 
     # Optionally save annotated image
-    annotated_path = SAVE_DIR / "last_annotated.jpg"
-    cv2.imwrite(str(annotated_path), img)
+    # annotated_path = SAVE_DIR / "last_annotated.jpg"
+    # cv2.imwrite(str(annotated_path), img)
 
     # Convert BGR back to RGB for Gradio
     img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-    return img_rgb
+    return img_rgb, [cls_res.names[cls_res.probs.top1] for cls_res in all_cls_res]
 
 
 # --------------------------- GRADIO APP ------------------------
 demo = gr.Interface(
     fn=pipeline,
     inputs=gr.Image(type="numpy", label="Upload Mahjong Image"),
-    outputs=gr.Image(type="numpy", label="Annotated Detection + Classification"),
+    outputs=[
+        gr.Image(type="numpy", label="Annotated Detection + Classification"),
+        gr.TextArea(label="Detected tiles"),
+        ],
     title="Mahjong Tile Detection + Classification",
     description="Upload an image to detect Mahjong tiles and classify each tile.",
 )
