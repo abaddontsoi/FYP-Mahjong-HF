@@ -1,0 +1,6 @@
+classification_raw_data/
+data/
+data_cls/
+data_cls1/
+venv/
+*.zip

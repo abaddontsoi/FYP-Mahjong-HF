@@ -1,0 +1,13 @@
+names:
+- tile
+nc: 1
+path: ./data
+roboflow:
+  license: CC BY 4.0
+  project: master-oez61
+  url: https://universe.roboflow.com/majmaster/master-oez61/dataset/7
+  version: 7
+  workspace: majmaster
+test: test/images
+train: train/images
+val: valid/images

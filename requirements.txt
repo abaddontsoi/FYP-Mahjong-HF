@@ -1,0 +1,4 @@
+PyYAML
+ultralytics
+opencv-python
+gradio
