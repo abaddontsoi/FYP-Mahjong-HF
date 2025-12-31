@@ -15,6 +15,7 @@ CLS_CONF = 0.5   # classification confidence
 
 # --------------------------- MODELS (load once) ---------------
 detector   = YOLO(DETECTOR_PATH)      # task='detect'
+detector.zero_grad()
 classifier = YOLO(CLASSIFIER_PATH)    # task='classify'
 
 print("Classifier classes:", classifier.names)
@@ -32,7 +33,7 @@ def pipeline(input_img: np.ndarray):
     img_bgr = cv2.cvtColor(input_img, cv2.COLOR_RGB2BGR)
 
     # Resize to 1920 x 1080
-    img_bgr = cv2.resize(img, (1920, 1080), interpolation=cv2.INTER_AREA)
+    # img_bgr = cv2.resize(img_bgr, (1920, 1080), interpolation=cv2.INTER_AREA)
 
     # --------------------------- PIPELINE ------------------------
     results = detector(img_bgr, imgsz=1920, conf=DET_CONF, verbose=False)  # list[Results]
