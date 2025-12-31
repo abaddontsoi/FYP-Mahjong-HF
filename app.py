@@ -31,6 +31,9 @@ def pipeline(input_img: np.ndarray):
     # Convert RGB (Gradio) -> BGR (OpenCV/YOLO)
     img_bgr = cv2.cvtColor(input_img, cv2.COLOR_RGB2BGR)
 
+    # Resize to 1920 x 1080
+    img_bgr = cv2.resize(img, (1920, 1080), interpolation=cv2.INTER_AREA)
+
     # --------------------------- PIPELINE ------------------------
     results = detector(img_bgr, imgsz=1920, conf=DET_CONF, verbose=False)  # list[Results]
 
