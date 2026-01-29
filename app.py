@@ -14,7 +14,7 @@ DET_CONF = 0.5   # detection confidence
 CLS_CONF = 0.5   # classification confidence
 
 # --------------------------- MODELS (load once) ---------------
-detector   = YOLO(DETECTOR_PATH)      # task='detect'
+detector   = YOLO(DETECTOR_PATH, task='obb')      # task='detect'
 detector.zero_grad()
 classifier = YOLO(CLASSIFIER_PATH)    # task='classify'
 
@@ -62,7 +62,7 @@ def pipeline(input_img: np.ndarray):
             all_cls_res.append(cls_res)
 
         # Draw on original image
-        color = (0, 255, 0) if tile_type != "unknown" else (0, 0, 255)
+        color = (0, 0, 255) if tile_type != "unknown" else (255, 0, 255)
         label = f"{tile_type} {cls_conf:.2f}"
         cv2.rectangle(img, (x1, y1), (x2, y2), color, 2)
         cv2.putText(
@@ -81,7 +81,7 @@ def pipeline(input_img: np.ndarray):
 
     # Convert BGR back to RGB for Gradio
     img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-    return img_rgb, [cls_res.names[cls_res.probs.top1] for cls_res in all_cls_res]
+    return img_rgb, sorted([cls_res.names[cls_res.probs.top1] for cls_res in all_cls_res], key=lambda x: int(x[0]) + 9*ord(x[1]))
 
 
 # --------------------------- GRADIO APP ------------------------
