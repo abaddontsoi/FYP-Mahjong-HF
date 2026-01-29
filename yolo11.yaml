@@ -4,10 +4,10 @@ nc: 1
 path: ./data
 roboflow:
   license: CC BY 4.0
-  project: mahjong-tiles-non-riichi-xe0ya
-  url: https://universe.roboflow.com/mj-vinx9/mahjong-tiles-non-riichi-xe0ya/dataset/1
-  version: 1
-  workspace: mj-vinx9
+  project: mahjong-detection-5d78k
+  url: https://universe.roboflow.com/mj-cmriu/mahjong-detection-5d78k/dataset/3
+  version: 3
+  workspace: mj-cmriu
 test: test/images
 train: train/images
 val: valid/images
