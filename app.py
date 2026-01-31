@@ -5,7 +5,7 @@ from pathlib import Path
 import gradio as gr
 
 # --------------------------- CONFIG ---------------------------
-DETECTOR_PATH   = "MJ_tile_detection_yolo26_fine_tune.pt"                # detection .pt
+DETECTOR_PATH   = "MJ_tile_detection_yolo11.pt"                # detection .pt
 CLASSIFIER_PATH = "MJ_tile_detection_classification_yolo11.pt" # classification .pt
 SAVE_DIR        = Path("pipeline_output")
 SAVE_DIR.mkdir(exist_ok=True)
