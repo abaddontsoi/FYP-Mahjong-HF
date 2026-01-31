@@ -5,7 +5,7 @@ from pathlib import Path
 import gradio as gr
 
 # --------------------------- CONFIG ---------------------------
-DETECTOR_PATH   = "MJ_tile_detection_yolo11.pt"                # detection .pt
+DETECTOR_PATH   = "MJ_tile_detection_yolo26_fine_tune.pt"                # detection .pt
 CLASSIFIER_PATH = "MJ_tile_detection_classification_yolo11.pt" # classification .pt
 SAVE_DIR        = Path("pipeline_output")
 SAVE_DIR.mkdir(exist_ok=True)
@@ -14,7 +14,7 @@ DET_CONF = 0.5   # detection confidence
 CLS_CONF = 0.5   # classification confidence
 
 # --------------------------- MODELS (load once) ---------------
-detector   = YOLO(DETECTOR_PATH, task='obb')      # task='detect'
+detector   = YOLO(DETECTOR_PATH)      # task='detect'
 detector.zero_grad()
 classifier = YOLO(CLASSIFIER_PATH)    # task='classify'
 
@@ -36,7 +36,11 @@ def pipeline(input_img: np.ndarray):
     # img_bgr = cv2.resize(img_bgr, (1920, 1080), interpolation=cv2.INTER_AREA)
 
     # --------------------------- PIPELINE ------------------------
-    results = detector(img_bgr, imgsz=1920, conf=DET_CONF, verbose=False)  # list[Results]
+    results = detector(img_bgr, 
+                       imgsz=1280, 
+                    #    conf=DET_CONF, 
+                       verbose=False
+                       )  # list[Results]
 
     # Process first image (single-image interface)
     r = results[0]
