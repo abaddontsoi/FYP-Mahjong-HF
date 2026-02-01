@@ -38,7 +38,7 @@ def pipeline(input_img: np.ndarray):
     # --------------------------- PIPELINE ------------------------
     results = detector(img_bgr, 
                        imgsz=1280, 
-                    #    conf=DET_CONF, 
+                       conf=DET_CONF, 
                        verbose=False
                        )  # list[Results]
 
