@@ -55,7 +55,7 @@ def pipeline(input_img: np.ndarray):
             continue
 
         # Classify crop
-        cls_res = classifier(crop, conf=CLS_CONF, verbose=False)[0]
+        cls_res = classifier(crop, conf=0.8, verbose=False)[0]
 
         if cls_res.probs is None:
             tile_type = "unknown"
