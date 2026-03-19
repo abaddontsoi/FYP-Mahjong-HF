@@ -7,3 +7,4 @@ venv/
 data1/
 data_val/
 yolo*.pt
+runs/

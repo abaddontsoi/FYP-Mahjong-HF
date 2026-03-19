@@ -4,10 +4,10 @@ nc: 1
 path: ./data
 roboflow:
   license: CC BY 4.0
-  project: mahjong-detection-5d78k
-  url: https://universe.roboflow.com/mj-cmriu/mahjong-detection-5d78k/dataset/3
-  version: 3
-  workspace: mj-cmriu
+  project: master-oez61
+  url: https://universe.roboflow.com/majmaster/master-oez61/dataset/7
+  version: 7
+  workspace: majmaster
 test: test/images
 train: train/images
 val: valid/images
