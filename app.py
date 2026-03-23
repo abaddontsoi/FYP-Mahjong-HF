@@ -56,6 +56,8 @@ def pipeline11(input_img: np.ndarray):
             cls_conf = 0.0
         else:
             tile_type = cls_res.names[cls_res.probs.top1]
+            if tile_type in ['0b', '1f', '2f', '3f', '4f', '5f', '6f', '7f', '8f']:
+                continue  # Skip flower tiles
             cls_conf = cls_res.probs.top1conf.item()
             all_cls_res.append(cls_res)
 
